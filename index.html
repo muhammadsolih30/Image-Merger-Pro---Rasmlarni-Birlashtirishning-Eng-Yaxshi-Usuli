@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Merger Pro - Rasmlarni Birlashtirishning Eng Yaxshi Usuli</title>
+    <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <span class="logo-icon">🎨</span>
+                <h1>Image Merger Pro</h1>
+            </div>
+            <p class="tagline">Rasmlarni Professional Uslubda Birlashtirir</p>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="main-container">
+        <!-- Upload Section -->
+        <section class="upload-section" id="uploadSection">
+            <h2>Rasmlarni Yuklang yoki Kameradan Suratga Oling</h2>
+            
+            <div class="upload-grid">
+                <!-- File Upload -->
+                <div class="upload-card" id="fileUploadCard">
+                    <input type="file" id="fileInput" multiple accept="image/*" hidden>
+                    <div class="upload-content">
+                        <div class="upload-icon">📁</div>
+                        <h3>Rasmlarni Yuklang</h3>
+                        <p>Bir nechta rasmni tanlang (2-100 ta)</p>
+                        <button class="btn btn-primary" onclick="document.getElementById('fileInput').click()">
+                            Yuklash
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Camera Upload -->
+                <div class="upload-card" id="cameraUploadCard">
+                    <div class="upload-content">
+                        <div class="upload-icon">📸</div>
+                        <h3>Kameradan Suratga Oling</h3>
+                        <p>To'g'ridan-to'g'ri kameradan</p>
+                        <button class="btn btn-secondary" onclick="openCamera()">
+                            Kamerani Ochish
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Image Preview Section -->
+        <section class="preview-section" id="previewSection" style="display: none;">
+            <h2>Yuklangan Rasmlar (<span id="imageCount">0</span>)</h2>
+            <div class="image-gallery" id="imageGallery"></div>
+            <button class="btn btn-light" onclick="resetApp()">Qayta Boshlash</button>
+        </section>
+
+        <!-- Styles Selection Section -->
+        <section class="styles-section" id="stylesSection" style="display: none;">
+            <h2>Birlashtirish Uslubini Tanlang (50+ Uslublar)</h2>
+            <div class="styles-grid" id="stylesGrid"></div>
+        </section>
+
+        <!-- Settings Section -->
+        <section class="settings-section" id="settingsSection" style="display: none;">
+            <h2>Sozlamalar</h2>
+            <div class="settings-grid">
+                <div class="setting-item">
+                    <label>Sifat (Resolution)</label>
+                    <select id="qualitySelect">
+                        <option value="2K">2K (2560x1440)</option>
+                        <option value="4K" selected>4K (3840x2160)</option>
+                        <option value="6K">6K (5760x3240)</option>
+                        <option value="8K">8K (7680x4320)</option>
+                    </select>
+                </div>
+                <div class="setting-item">
+                    <label>Oraliq (Spacing): <span id="spacingValue">10</span>px</label>
+                    <input type="range" id="spacingSlider" min="0" max="200" value="10">
+                </div>
+                <div class="setting-item">
+                    <label>Border Radius: <span id="radiusValue">0</span>px</label>
+                    <input type="range" id="radiusSlider" min="0" max="100" value="0">
+                </div>
+                <div class="setting-item">
+                    <label>Fon Rangi</label>
+                    <input type="color" id="bgColorPicker" value="#ffffff">
+                </div>
+                <div class="setting-item">
+                    <label>Blur Effekti: <span id="blurValue">0</span>px</label>
+                    <input type="range" id="blurSlider" min="0" max="50" value="0">
+                </div>
+                <div class="setting-item">
+                    <label>Opacity (Shaffoflik): <span id="opacityValue">100</span>%</label>
+                    <input type="range" id="opacitySlider" min="0" max="100" value="100">
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="btn btn-success" onclick="mergeImages()">
+                    Rasmlarni Birlashtirir
+                </button>
+            </div>
+        </section>
+
+        <!-- Result Section -->
+        <section class="result-section" id="resultSection" style="display: none;">
+            <h2>Natija</h2>
+            <div class="result-container">
+                <canvas id="resultCanvas"></canvas>
+            </div>
+
+            <div class="download-buttons">
+                <button class="btn btn-download" onclick="downloadImage('png')">
+                    📥 PNG Sifatida Yuklash
+                </button>
+                <button class="btn btn-download" onclick="downloadImage('jpg')">
+                    📥 JPG Sifatida Yuklash
+                </button>
+                <button class="btn btn-download" onclick="downloadImage('webp')">
+                    📥 WEBP Sifatida Yuklash
+                </button>
+            </div>
+        </section>
+
+        <!-- Loading Spinner -->
+        <div class="spinner" id="spinner" style="display: none;">
+            <div class="spinner-inner"></div>
+            <p>Rasmlarni Birlashtirmoqda...</p>
+        </div>
+    </main>
+
+    <!-- Camera Modal -->
+    <div class="modal" id="cameraModal" style="display: none;">
+        <div class="modal-content">
+            <video id="cameraVideo" autoplay playsinline></video>
+            <div class="camera-buttons">
+                <button class="btn btn-success" onclick="capturePhoto()">📷 Suratga Olish</button>
+                <button class="btn btn-light" onclick="closeCamera()">❌ Yopish</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
